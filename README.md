@@ -12,7 +12,7 @@ Develop in localhost:
 
 Build Production
 
-- npm run build
+- npm run prod
 
 # Features
 
