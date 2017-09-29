@@ -1,0 +1,18 @@
+<!DOCTYPE/>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title><%= htmlWebpackPlugin.options.name %></title>
+        <!-- Webpack will bundle styles automatically. -->
+    </head>
+    <body>
+
+        <%= require('components/header/header.tpl')() %>
+     
+        <section class="js--current-page" id="<%= htmlWebpackPlugin.options.name %>" >
+            <%= require('pages')[htmlWebpackPlugin.options.name]() %>
+        </section>
+
+        <!-- Webpack will bundle scripts automatically. -->
+    </body>
+</html>
