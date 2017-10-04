@@ -12,15 +12,11 @@ const
     PROD         = path.resolve(ROOT, 'production'),
     NODE_MODULES = path.resolve(ROOT, 'node_modules');
 
-const Pages = pages => 
-    pages.map(page => {
-        return new HtmlWebpackPlugin({
-                filename: page.filename,
-                template: 'index.ejs',
-                name : page.name
-               })
-    })
-;
+const PageProcessor = pages => pages.map(page => new HtmlWebpackPlugin({ filename: page.filename, template: 'index.ejs', name : page.name }));
+const Pages = PageProcessor([
+    { name : 'Home', filename : 'index.html' },
+    { name : 'About', filename : 'about.html' }
+]);
 
 var config = {
     target: 'web',
@@ -76,10 +72,7 @@ var config = {
     },
     plugins: [
         new ExtractTextPlugin('styles_[chunkhash].css'),
-        ...Pages([
-            { name : 'Home', filename : 'index.html' },
-            { name : 'About', filename : 'about.html' }
-        ])
+        ...Pages,
     ],
     resolve : {
         modules : [NODE_MODULES, SOURCE, APP]

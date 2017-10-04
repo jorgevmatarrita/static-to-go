@@ -1,6 +1,5 @@
 // Application Styles.
-require('styles/fonts/fonts.scss');
-require('styles/bootstrap/bootstrap.scss');
+require('styles/app.scss');
 require.context('app/components/', true, /.scss/);
 require.context('app/pages/', true, /.scss/);
 // Application Assets.

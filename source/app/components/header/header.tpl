@@ -2,8 +2,8 @@
     <div class="container" >
         <nav>
             <ul>
-                <li><a href="./">Home</a></li>
-                <li><a href="./about.html">About</a></li>
+                <li><a class="common-anchor" href="./">Home</a></li>
+                <li><a class="common-anchor" href="./about.html">About</a></li>
             </ul>
         </nav>
     </div>

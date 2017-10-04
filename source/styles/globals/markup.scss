@@ -1,0 +1,27 @@
+button {
+    cursor : pointer;
+}
+
+.common-anchor {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background : $link-color;
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        &::after {
+        width: 100%;
+        background : $link-hover-color;
+        }
+    }
+
+}
