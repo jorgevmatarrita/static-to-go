@@ -1,28 +1,50 @@
 const 
     // Dependencies.
-    path               = require('path'),
-    webpack            = require('webpack'),
+    path    = require('path'),
+    webpack = require('webpack'),
+    { readdirSync } = require('fs'),
+    // Custom Modules.
+    Pages = require('./pageProcessor'),
     // Pluggins.
     HtmlWebpackPlugin  = require('html-webpack-plugin'),
     ExtractTextPlugin  = require('extract-text-webpack-plugin'),
+    webfontsGenerator = require('webfonts-generator'),
+    // logger.
+    log = msj => console.log(msj),
     // Path constants.
     ROOT         = path.resolve(__dirname, '../'),
-    SOURCE       = path.resolve(ROOT, 'source'),
-    APP          = path.resolve(ROOT, 'source/app'),
-    PROD         = path.resolve(ROOT, 'production'),
-    NODE_MODULES = path.resolve(ROOT, 'node_modules');
+    pth          = location => path.resolve(ROOT, location),
+    SOURCE       = pth('source'),
+    APP          = pth('source/app'),
+    TEMPLATE     = pth('source/index.ejs'),
+    ICONS        = pth('source/assets/icons'),
+    IMAGES       = pth('source/assets/images'),
+    FONTS        = pth('source/styles/fonts'),
+    PROD         = pth('production'),
+    NODE_MODULES = pth('node_modules');
 
-const PageProcessor = pages => pages.map(page => new HtmlWebpackPlugin({ filename: page.filename, template: 'index.ejs', name : page.name }));
-const Pages = PageProcessor([
-    { name : 'Home', filename : 'index.html' },
-    { name : 'About', filename : 'about.html' }
-]);
+webfontsGenerator(
+    {
+        files : readdirSync(ICONS).map(svg => `./source/assets/icons/${svg}`),
+        dest: pth('source/styles/fonts'),
+        fontName : 'icons',
+        css : true,
+        cssTemplate : pth('source/styles/icons/WebfontsGenerator/template.scss'),
+        cssDest : pth('source/styles/icons/WebfontsGenerator/output.scss'),
+        writeFiles : true,
+        templateOptions : {
+            baseSelector : '.icon',
+            classPrefix : 'icon-'
+        }
+    },
+    error => log(error || 'Done.')
+);
 
-var config = {
+module.exports = {
     target: 'web',
     context : SOURCE,
     entry : {
-        app : './app.entrypoint.js',
+        app   : './app.entrypoint.js'
     },
     output : {
         path : PROD,
@@ -34,13 +56,14 @@ var config = {
                 test: /\.js$/,
                 exclude: [/node_modules/],
                 use: [{
-                    loader: 'babel-loader',
+                    loader: 'babel-loader?cacheDirectory=false',
                     options: { presets: ['es2017', 'react', 'stage-0'] }
                 }],
             },
             { 
-                test: /\.tpl$/,
-                loader: 'ejs-loader?variable=data'
+                test: /\.(tpl|ejs)$/,
+                loader: 'ejs-loader?variable=data',
+                exclude : TEMPLATE,
             },
             {
                 test : /\.(html|php)$/,
@@ -54,43 +77,21 @@ var config = {
                 })
             },
             {
-                test: /\.(jpg|jpeg|gif)$/,
-                exclude: [/node_modules/],
+                test: /\.(png|png|jpg|jpeg|gif)$/,
+                include: IMAGES,
                 loader: 'url-loader?limit=10000&name=./images/[name].[ext]'
             },
             {
-                test: /\.(svg|ico|png)$/,
-                exclude: [/node_modules/],
-                loader: 'url-loader?limit=10000&name=./icons/[name].[ext]'
-            },
-            {
-                test: /\.(ttf|eot)$/,
-                exclude: [/node_modules/],
+                test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'url-loader?limit=1&name=./fonts/[name].[ext]'
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin('styles_[chunkhash].css'),
+        new ExtractTextPlugin('styles.css'),
         ...Pages,
     ],
     resolve : {
         modules : [NODE_MODULES, SOURCE, APP]
     },
 };
-
-// If the app has two or more entry points the CommonChunkPlugin is injected.
-if (Object.keys(config.entry).length >= 2) {
-
-    config.plugins = [
-        ...config.plugins,
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'shared',
-            filename: '[name]_[chunkhash].js',
-            minChunks: 2,
-        })
-    ];
-
-}
-
-module.exports = config;

@@ -4,7 +4,7 @@ button {
 
 .common-anchor {
     position: relative;
-
+   
     &::after {
         content: '';
         position: absolute;
@@ -18,9 +18,11 @@ button {
     }
 
     &:hover {
+        text-decoration: none;
+
         &::after {
-        width: 100%;
-        background : $link-hover-color;
+            width: 100%;
+            background : $link-hover-color;
         }
     }
 

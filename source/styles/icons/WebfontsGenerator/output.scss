@@ -1,0 +1,44 @@
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: icons !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-agile:before {
+	content: "\f101";
+}
+.icon-arrow-down:before {
+	content: "\f102";
+}
+.icon-arrow-up:before {
+	content: "\f103";
+}
+.icon-check-icon:before {
+	content: "\f104";
+}
+.icon-deloitte:before {
+	content: "\f105";
+}
+.icon-file-icon:before {
+	content: "\f106";
+}
+.icon-hybrid-agile:before {
+	content: "\f107";
+}
+.icon-ladder:before {
+	content: "\f108";
+}
+.icon-locked-icon:before {
+	content: "\f109";
+}
+.icon-person-icon:before {
+	content: "\f10a";
+}
+.icon-solution-graph:before {
+	content: "\f10b";
+}

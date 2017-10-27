@@ -1,12 +1,13 @@
 import { App } from 'modules';
+require('./contact.scss');
 
 App.Controller(
-    'Home',
+    'About',
     self => {
 
         var $title = self.find('h1');
 
-        console.log($title);
+        console.log('About', $title);
 
     }
 );

@@ -7,7 +7,7 @@
     </head>
     <body>
 
-        <%= require('components/header/header.tpl')() %>
+        <%= require('components/header/header.ejs')() %>
      
         <section class="js--current-page" id="<%= htmlWebpackPlugin.options.name %>" >
             <%= require('pages')[htmlWebpackPlugin.options.name]() %>

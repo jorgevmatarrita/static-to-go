@@ -1,10 +1,9 @@
 import jQuery from 'jquery';
-import Header from './header.tpl';
 
 jQuery(() => {
 
-    const $header = jQuery('.js--site-header');
+    const $header = jQuery('');
+
+    console.log('The header is here!', $header);
 
 });
-
-export default Header()

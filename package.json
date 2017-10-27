@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "prod": "webpack -p",
-    "dev" : "nodemon --watch webpack/webpack.common.config.js ./node_modules/.bin/webpack-dev-server"
+    "build": "webpack -p",
+    "start": "nodemon --watch source/app/pages/index.js ./node_modules/.bin/webpack-dev-server"
   },
   "engines": {
     "node": "^5.11.1",
@@ -16,21 +16,24 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
-    "bootstrap": "^4.0.0-beta",
+    "bootstrap": "^4.0.0-beta.2",
     "clean-webpack-plugin": "^0.1.15",
     "css-loader": "^0.26.2",
     "ejs-loader": "^0.3.0",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
+    "fontgen-loader": "^0.2.1",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.28.0",
     "jquery": "^3.2.1",
     "node-sass": "^4.5.0",
     "nodemon": "^1.12.1",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
+    "webfonts-generator": "^0.4.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "2"
   },

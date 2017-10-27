@@ -1,12 +1,9 @@
 import { App } from 'modules';
+require('./about.scss');
 
 App.Controller(
-    'About',
+    'about',
     self => {
-
-        var $title = self.find('h1');
-
-        console.log('About', $title);
 
     }
 );
